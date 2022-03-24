@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using HeckMan_GD07;
+using HackMan_GD07;
 public class WallComponent : BaseGridObject
 {
     // Start is called before the first frame update

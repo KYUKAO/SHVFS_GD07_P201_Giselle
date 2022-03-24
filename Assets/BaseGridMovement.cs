@@ -1,9 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Hackman_GD07;
+using HackMan_GD07;
 
-namespace HeckMan_GD07
+namespace HackMan_GD07
 {
     public class BaseGridMovement : BaseGridObject
     {
@@ -23,12 +23,14 @@ namespace HeckMan_GD07
                 progressToTarget = 0f;
                 GridPosition = targetGridPosition;
             }
+            //if we set a new target AND out current input is VALID ->  NOT A WALL
             if (GridPosition == targetGridPosition 
                 && LevelGeneratorSystem.Grid[Mathf.Abs(GridPosition.y + currentInputDirection.y), Mathf.Abs(GridPosition.x + currentInputDirection.x)] != 1)
             {
                 targetGridPosition += currentInputDirection;
                 previousInputDirection = currentInputDirection;
             }
+            //If we set a new target AND our current input is NOT VALID-> IT IS A WALL
             else if (GridPosition == targetGridPosition 
                 && LevelGeneratorSystem.Grid[Mathf.Abs(GridPosition.y + previousInputDirection.y), Mathf.Abs(GridPosition.x + previousInputDirection.x)] != 1)
             {

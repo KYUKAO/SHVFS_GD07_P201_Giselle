@@ -1,7 +1,7 @@
 using UnityEngine;
-using HeckMan_GD07;
+using HackMan_GD07;
 
-namespace Hackman_GD07
+namespace HackMan_GD07
 {
     public class LevelGeneratorSystem : MonoBehaviour
     {
