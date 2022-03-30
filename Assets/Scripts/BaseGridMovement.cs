@@ -12,10 +12,12 @@ namespace HackMan_GD07
         protected float progressToTarget = 1f;
         protected IntVector2 currentInputDirection;
         protected IntVector2 previousInputDirection;
+
         private void Start()
         {
-            
+            targetGridPosition = GridPosition;
         }
+        
         protected virtual void Update()
         {
             if (transform.position == targetGridPosition.ToVector3())
@@ -36,22 +38,27 @@ namespace HackMan_GD07
             {
                 targetGridPosition += previousInputDirection;
             }
+            else if(GridPosition==targetGridPosition)
+            {
+                Debug.Log("Die");
+            }
             if (GridPosition == targetGridPosition) return;
             progressToTarget += MovementSpeed * Time.deltaTime;
+            transform.position = Vector3.Lerp(GridPosition.ToVector3(), targetGridPosition.ToVector3(), progressToTarget);
         }
     }
+
     public static class ExtensionMethods
     {//Extension methods allows us to EXTEND the functionality of our classes,without MODIFYING the class itself
         //This follows one of our principles
-        public static Vector3 ToVector3(this BaseGridObject.IntVector2 vector2)
+        public static Vector3 ToVector3(this IntVector2 vector2)
         {
             return new Vector2(vector2.x, vector2.y);
         }
-        public static BaseGridObject.IntVector2 IntVector2(this Vector3 vector3)
+        public static IntVector2 IntVector2(this Vector3 vector3)
         {
-            return new BaseGridObject.IntVector2((int)vector3.x, (int)vector3.y);
+            return new IntVector2((int)vector3.x, (int)vector3.y);
         }
     }
 }
-
 

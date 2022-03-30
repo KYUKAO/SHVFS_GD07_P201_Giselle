@@ -4,13 +4,9 @@ using UnityEngine;
 using HackMan_GD07;
 public class HackManComponent : BaseGridMovement
 {
-    private void Start()
-    {
-        
-    }
     protected override void Update()
     {
-        //we want to get playerinput first before moving
+        //We want to get playerinput first before moving
         //calling 'base' calls the virtual method , first
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
@@ -29,6 +25,5 @@ public class HackManComponent : BaseGridMovement
             currentInputDirection = new IntVector2(1, 0);
         }
         base.Update();
-
     }
 }
