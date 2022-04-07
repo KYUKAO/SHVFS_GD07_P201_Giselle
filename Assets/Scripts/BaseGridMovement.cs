@@ -5,7 +5,7 @@ using HackMan_GD07;
 
 namespace HackMan_GD07
 {
-    public class MovementComponent : BaseGridObject
+    public class BaseGridMovement : BaseGridObject
     {
         public float MovementSpeed;
         protected IntVector2 targetGridPosition;
