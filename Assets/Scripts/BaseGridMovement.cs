@@ -13,7 +13,7 @@ namespace HackMan_GD07
         protected IntVector2 currentInputDirection;
         protected IntVector2 previousInputDirection;
 
-        private void Start()
+        protected virtual void Start()
         {
             targetGridPosition = GridPosition;
         }
@@ -27,14 +27,14 @@ namespace HackMan_GD07
             }
             //if we set a new target AND out current input is VALID ->  NOT A WALL
             if (GridPosition == targetGridPosition 
-                && LevelGeneratorSystem.Grid[Mathf.Abs(GridPosition.y + currentInputDirection.y), Mathf.Abs(GridPosition.x + currentInputDirection.x)] != 1)
+                && !(GridPosition+currentInputDirection).isWall())
             {
                 targetGridPosition += currentInputDirection;
                 previousInputDirection = currentInputDirection;
             }
             //If we set a new target AND our current input is NOT VALID-> IT IS A WALL
-            else if (GridPosition == targetGridPosition 
-                && LevelGeneratorSystem.Grid[Mathf.Abs(GridPosition.y + previousInputDirection.y), Mathf.Abs(GridPosition.x + previousInputDirection.x)] != 1)
+            else if (GridPosition == targetGridPosition
+                && !(GridPosition + currentInputDirection).isWall())
             {
                 targetGridPosition += previousInputDirection;
             }
@@ -58,6 +58,10 @@ namespace HackMan_GD07
         public static IntVector2 IntVector2(this Vector3 vector3)
         {
             return new IntVector2((int)vector3.x, (int)vector3.y);
+        }
+        public static bool isWall(this IntVector2 vector2)
+        {
+            return LevelGeneratorSystem.Grid[Mathf.Abs(vector2.y), Mathf.Abs(vector2.x)]==1;
         }
     }
 }

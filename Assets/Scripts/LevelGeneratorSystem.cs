@@ -8,7 +8,7 @@ namespace HackMan_GD07
         public BaseGridObject[] BaseGridObjectPrefabs;
         public static int[,] Grid = new int[,]
         {
-            {1,1,1,1,1,1,1,1,1,0,1 },
+            {1,1,1,1,1,1,1,1,1,1,1 },
             {1,0,1,0,1,0,0,0,0,0,1 },
             {1,0,1,0,0,0,2,0,0,0,1 },
             {1,0,1,0,0,1,0,0,1,0,1 },

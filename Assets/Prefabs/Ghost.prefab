@@ -112,3 +112,4 @@ MonoBehaviour:
   GridPosition:
     x: 0
     y: 0
+  MovementSpeed: 5
