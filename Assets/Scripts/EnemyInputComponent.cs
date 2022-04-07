@@ -4,7 +4,7 @@ using UnityEngine;
 using HackMan_GD07;
 using System.Linq;
 
-public class GhostComponent : BaseGridMovement
+public class EnemyInputComponent : MovementComponent
 {
     //Controller
     private IntVector2[] movementDirections = new IntVector2[]
