@@ -40,11 +40,12 @@ namespace HackMan_GD07
             }
             else if(GridPosition==targetGridPosition)
             {
-                Debug.Log("Die");
+                //Debug.Log("Die");
             }
             if (GridPosition == targetGridPosition) return;
             progressToTarget += MovementSpeed * Time.deltaTime;
             transform.position = Vector3.Lerp(GridPosition.ToVector3(), targetGridPosition.ToVector3(), progressToTarget);
+            //Lerp from A to B,A must be a fixed value.
         }
     }
 
@@ -55,7 +56,7 @@ namespace HackMan_GD07
         {
             return new Vector2(vector2.x, vector2.y);
         }
-        public static IntVector2 IntVector2(this Vector3 vector3)
+        public static IntVector2 ToIntVector2(this Vector3 vector3)
         {
             return new IntVector2((int)vector3.x, (int)vector3.y);
         }

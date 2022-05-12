@@ -2,7 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using HackMan_GD07;
-public class HackManComponent : MovementComponent
+using UnityEngine.SceneManagement;
+using System;
+
+public class PlayerInputComponent : MovementComponent
 {
     protected override void Update()
     {

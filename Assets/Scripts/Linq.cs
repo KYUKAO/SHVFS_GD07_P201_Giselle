@@ -6,7 +6,7 @@ using System.Linq;
 public class Linq : MonoBehaviour
 {
     //Language
-    //INTegrated
+    //Integrated
     //Query
     public void OnEnable()
     {
@@ -19,6 +19,7 @@ public class Linq : MonoBehaviour
         //Method syntax
         //Where is a filtering extension method
         var namesWithAMethod = names.Where(name => name.Contains("C"));
+
         foreach(var name in namesWithAQuery)
         {
             Debug.Log($"QUERY:{name}");
@@ -30,3 +31,4 @@ public class Linq : MonoBehaviour
         //Lambda...=>"goes to"
     }
 }
+//Grouping Operator:creates groups of elements,where each group has a key and inner collection(Group By,ToLookUp)
