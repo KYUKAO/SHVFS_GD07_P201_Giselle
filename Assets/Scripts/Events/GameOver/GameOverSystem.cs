@@ -18,10 +18,6 @@ public class GameOverSystem : MonoBehaviour
         }
     }
 
-    private void Start()
-    {
-    }
-
     public void OnDisable()
     {
         Evently.Instance.Unsubscribe<GameOverEvent>(WinningJudgement);

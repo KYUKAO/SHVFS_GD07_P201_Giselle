@@ -31,14 +31,14 @@ namespace HackMan_GD07
                 IntializeLevels();
                 Grid = Levels[5];
             }
-            if(Input.GetKeyDown(KeyCode.Escape))
+            if (Input.GetKeyDown(KeyCode.Escape))
             {
                 CollectorComponent.NumOfCollectable = FindObjectsOfType<CollactableComponent>().Length;
             }
         }
         public void FillLevelWithGrid()
         {
-            if(lastLevelContainer)
+            if (lastLevelContainer)
             {
                 Destroy(lastLevelContainer);
             }
@@ -60,10 +60,10 @@ namespace HackMan_GD07
                 }
             }
             CollectorComponent.NumOfCollectable = 0;
-            for (int i=0;i<LevelContainer.transform.childCount;i++)
+            for (int i = 0; i < LevelContainer.transform.childCount; i++)
             {
                 var obj = LevelContainer.transform.GetChild(i);
-                if(obj.GetComponent<CollactableComponent>())
+                if (obj.GetComponent<CollactableComponent>())
                 {
                     CollectorComponent.NumOfCollectable++;
                 }
@@ -73,9 +73,9 @@ namespace HackMan_GD07
         public void RandomlyChooseALevel()
         {
             IntializeLevels();
-            while (oldRand==rand)
+            while (oldRand == rand)
             {
-               rand = Random.Range(0, Levels.Count);
+                rand = Random.Range(0, Levels.Count);
             }
             Grid = Levels[rand];
             oldRand = rand;
@@ -104,7 +104,7 @@ namespace HackMan_GD07
             {
                 Directory.CreateDirectory(directoryPath);
             }
-            for (int i=0;i<MaxmumOfLevels;i++)
+            for (int i = 0; i < MaxmumOfLevels; i++)
             {
                 var filePath = $"{Application.dataPath}/StreamingAssets/{typeof(int[,]).Name}/Level_{i}.json";
                 if (!File.Exists(filePath))
@@ -152,6 +152,10 @@ namespace HackMan_GD07
 
         //string fullFilePath =$"{Application.dataPath}/StreamingAssets/Levels/Level_1.json";
         //0=pill,1=wall,2=hackman,3=ghost
+        //4 Features:
+            //Health system
+            //Can transport to another level with current position and transport back
+            //After transported ,the current level savesitself.
+            //The AI will chase you if you are nearby?
     }
 }
-
