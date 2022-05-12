@@ -57,6 +57,15 @@ namespace HackMan_GD07
                     lastLevelContainer = LevelContainer;
                 }
             }
+            CollectorComponent.NumOfCollectable = 0;
+            for (int i=0;i<LevelContainer.transform.childCount;i++)
+            {
+                var obj = LevelContainer.transform.GetChild(i);
+                if(obj.GetComponent<CollactableComponent>())
+                {
+                    CollectorComponent.NumOfCollectable++;
+                }
+            }
         }
 
         private void RandomlyChooseALevel()

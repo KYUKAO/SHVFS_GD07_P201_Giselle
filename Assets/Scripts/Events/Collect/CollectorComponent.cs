@@ -8,7 +8,6 @@ public class CollectorComponent : MonoBehaviour
     public static int NumOfCollectable;
     private void Start()
     {
-        CollectorComponent.NumOfCollectable = FindObjectsOfType<CollactableComponent>().Length;
         CurrentNumOfCollection = 0;
     }
     private void Update()
