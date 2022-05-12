@@ -14,6 +14,8 @@ namespace HackMan_GD07
         public BaseGridObject[] BaseGridObjectPrefabs;
         GameObject lastLevelContainer;
         public static int[,] Grid = new int[,] { };
+        int oldRand = 0;
+        int rand = 0;
 
         private void Update()
         {
@@ -34,7 +36,7 @@ namespace HackMan_GD07
                 CollectorComponent.NumOfCollectable = FindObjectsOfType<CollactableComponent>().Length;
             }
         }
-        void FillLevelWithGrid()
+        public void FillLevelWithGrid()
         {
             if(lastLevelContainer)
             {
@@ -68,28 +70,27 @@ namespace HackMan_GD07
             }
         }
 
-        private void RandomlyChooseALevel()
+        public void RandomlyChooseALevel()
         {
             IntializeLevels();
-            int[,] thisGrid = Grid;
-            int rand = 0;
-            while (thisGrid==Grid)
+            while (oldRand==rand)
             {
                rand = Random.Range(0, Levels.Count);
-                thisGrid = Levels[rand];
             }
-            Grid = thisGrid;
+            Grid = Levels[rand];
+            oldRand = rand;
             Debug.Log($"CurrentLevel : Level_{rand}");
         }
+
         void IntializeLevels()
         {
             Levels.Clear();
             for (int n = 0; n < MaxmumOfLevels; n++)
             {
-                var newGrid = AppDataSystem.Load<int[,]>($"Level_{n}");
-                if (newGrid != null)
+                var newLevel = AppDataSystem.Load<int[,]>($"Level_{n}");
+                if (newLevel != null)
                 {
-                    Levels.Add(newGrid);
+                    Levels.Add(newLevel);
                 }
             }
         }
@@ -147,8 +148,7 @@ namespace HackMan_GD07
         //Make 10 different levels
         //LevelGenerator should pick a random level from the 10
         //Bonus Points -> Create a LoadAll method in the AppDataSystem
-        //When the game is run ,won, or lost,user should see a UI message telling them what 
-        //happened ,and have a button to click to play another level
+        //When the game is run ,won, or lost,user should see a UI message telling them what happened ,and have a button to click to play another level
 
         //string fullFilePath =$"{Application.dataPath}/StreamingAssets/Levels/Level_1.json";
         //0=pill,1=wall,2=hackman,3=ghost

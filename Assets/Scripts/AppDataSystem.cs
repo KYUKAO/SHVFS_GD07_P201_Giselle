@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
-public class AppDataSystem 
+public class AppDataSystem
 {
     //This system will have generic methods to seralize and deserialize almost any kind of data we want ,except...
     //MonoBehaviours,GameObjects,prefabs,etc...
@@ -50,7 +50,7 @@ public class AppDataSystem
         var serializedData = JsonConvert.SerializeObject(data);
         File.WriteAllText(filePath, serializedData);
     }
-     //Load Method
+    //Load Method
     public static T Load<T>(string fileName)
     {
         var filePath = $"{Application.dataPath}/StreamingAssets/{typeof(T).Name}/{fileName}.json";

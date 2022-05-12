@@ -10,10 +10,10 @@ public class CollectorComponent : MonoBehaviour
     {
         CurrentNumOfCollection = 0;
     }
-    private void Update()
-    {
-        Debug.Log($"{ NumOfCollectable},{ CurrentNumOfCollection}");
-    }
+    //private void Update()
+    //{
+    //    Debug.Log($"{ NumOfCollectable},{ CurrentNumOfCollection}");
+    //}
     //have this on the player ,had better make every values in this Class;
     private void OnTriggerEnter(Collider other)
     {

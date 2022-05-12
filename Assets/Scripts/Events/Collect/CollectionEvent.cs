@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CollectionEvent : MonoBehaviour
+public class CollectionEvent
 {
     public CollactableComponent Collectable;
     public CollectorComponent Collector;
