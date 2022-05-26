@@ -17,7 +17,7 @@ namespace HackMan_GD07
         {
             targetGridPosition = GridPosition;
         }
-        
+
         protected virtual void Update()
         {
             if (transform.localPosition == targetGridPosition.ToVector3())

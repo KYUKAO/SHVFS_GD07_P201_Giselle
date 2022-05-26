@@ -7,7 +7,6 @@ public class CustomizeLevels : LevelGeneratorSystem
 {
     IntVector2 InputDirection;
     IntVector2 currentPos=new IntVector2(1, 1);
-    public Color emitColor;
     public InputField InputField;
     MyLevel newLevel;
     string levelName;
@@ -19,7 +18,7 @@ public class CustomizeLevels : LevelGeneratorSystem
          {1, 1, 1, 1, 1,  1, 1,1,1},
          {1, 1, 1, 1, 1,  1, 1,1,1},
          {1, 1, 1, 1, 1,  1, 1, 1,1}};
-   void OnEnable()
+   protected override void OnEnable()
     {
         isEditing = true;
         InputField.gameObject.SetActive(false);
@@ -90,7 +89,7 @@ public class CustomizeLevels : LevelGeneratorSystem
     private void OnDisable()
     {
         Destroy(lastLevelContainer);
-        Time.timeScale = 1;
+        //Time.timeScale = 1;
     }
     [ContextMenu("My Save Level")]
     public void MySaveLevel()

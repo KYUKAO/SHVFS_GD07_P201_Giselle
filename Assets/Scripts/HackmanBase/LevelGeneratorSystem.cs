@@ -13,10 +13,12 @@ namespace HackMan_GD07
         public BaseGridObject[] BaseGridObjectPrefabs;
         protected GameObject lastLevelContainer;
         public static int[,] Grid = new int[,] { };
-        int numOfLevel = 3;
         int oldRand = 0;
         int rand = 0; 
-
+        protected virtual void OnEnable()
+        {
+            Time.timeScale = 1;
+        }
         protected virtual void Update()
         {
             if (GameOverSystem.IsGameOver)
@@ -88,7 +90,7 @@ namespace HackMan_GD07
             Debug.Log($"CurrentLevel : Level_{rand}");
         }
 
-       
+
 
         //[ContextMenu("Save Level")]
         //private void SaveLevel()
@@ -128,8 +130,8 @@ namespace HackMan_GD07
         //0=pill,1=wall,2=hackman,3=ghost
         //4 Features:
         //1.DamageSystem&ExperienceSystem
-        //2.Can transport to another level with current position and transport back.The system will check if there's a place with the same position, if not ,fail to transport.
-        //3.After transported ,the former level savesitself.
+        //2.Portal:Can transport to another level with current position and transport back.The system will check if there's a place with the same position, if not ,fail to transport.
+        //3.Record the score and ranking function
         //4.The player can make custom levels and save it.
         //Send Chris email
     }
