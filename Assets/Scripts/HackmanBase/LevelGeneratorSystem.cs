@@ -9,33 +9,24 @@ namespace HackMan_GD07
 {
     public class LevelGeneratorSystem : MonoBehaviour
     {
-        public List<int[,]> Levels = new List<int[,]>();
-        public int MaxmumOfLevels = 10;
+        public List<MyLevel> Levels = new List<MyLevel>();
         public BaseGridObject[] BaseGridObjectPrefabs;
-        GameObject lastLevelContainer;
+        protected GameObject lastLevelContainer;
         public static int[,] Grid = new int[,] { };
+        int numOfLevel = 3;
         int oldRand = 0;
-        int rand = 0;
+        int rand = 0; 
 
-        private void Update()
+        protected virtual void Update()
         {
             if (GameOverSystem.IsGameOver)
             {
-                RandomlyChooseALevel();
-                FillLevelWithGrid();
+                    RandomlyChooseALevel();
+                    FillLevelWithGrid();
                 GameOverSystem.IsGameOver = false;
             }
-            //For Test
-            if (Input.GetKeyDown(KeyCode.Alpha5))
-            {
-                IntializeLevels();
-                Grid = Levels[5];
-            }
-            if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                CollectorComponent.NumOfCollectable = FindObjectsOfType<CollactableComponent>().Length;
-            }
         }
+
         public void FillLevelWithGrid()
         {
             if (lastLevelContainer)
@@ -45,20 +36,34 @@ namespace HackMan_GD07
             GameObject LevelContainer = new GameObject("LevelContainer");
             var gridSizeY = Grid.GetLength(0);
             var gridSizeX = Grid.GetLength(1);
+            bool hasPlayer=false;
             for (var y = 0; y < gridSizeY; y++)
             {
                 for (var x = 0; x < gridSizeX; x++)
                 {
-                    //Normally with "math",x comes first ,then y...
                     var objectType = Grid[y, x];
+                    if(objectType==2)
+                    {
+                        if(hasPlayer)
+                        {
+                            objectType = 0;
+                        }
+                        else
+                        {
+                            hasPlayer = true;
+                        }
+                    }
                     var gridObjectPrefab = BaseGridObjectPrefabs[objectType];
                     var gridObjectClone = Instantiate(gridObjectPrefab);
                     gridObjectClone.GridPosition = new IntVector2(x, -y);
-                    gridObjectClone.transform.position = new Vector3(gridObjectClone.GridPosition.x, gridObjectClone.GridPosition.y, 0);
-                    gridObjectClone.transform.SetParent(LevelContainer.transform);
+                     gridObjectClone.transform.SetParent(LevelContainer.transform);
+                    gridObjectClone.transform.localPosition = new Vector3(gridObjectClone.GridPosition.x, gridObjectClone.GridPosition.y, 0);
+                    LevelContainer.transform.SetParent(this.transform);
                     lastLevelContainer = LevelContainer;
                 }
             }
+
+            //Reset  NumOfCollectable
             CollectorComponent.NumOfCollectable = 0;
             for (int i = 0; i < LevelContainer.transform.childCount; i++)
             {
@@ -72,49 +77,18 @@ namespace HackMan_GD07
 
         public void RandomlyChooseALevel()
         {
-            IntializeLevels();
+            Levels.Clear();
+            Levels = AppDataSystem.LoadAll<MyLevel>();
             while (oldRand == rand)
             {
                 rand = Random.Range(0, Levels.Count);
             }
-            Grid = Levels[rand];
+            Grid = Levels[rand].Grid;
             oldRand = rand;
             Debug.Log($"CurrentLevel : Level_{rand}");
         }
 
-        void IntializeLevels()
-        {
-            Levels.Clear();
-            for (int n = 0; n < MaxmumOfLevels; n++)
-            {
-                var newLevel = AppDataSystem.Load<int[,]>($"Level_{n}");
-                if (newLevel != null)
-                {
-                    Levels.Add(newLevel);
-                }
-            }
-        }
-
-        [ContextMenu("New Save Level")]
-        private void NewSaveLeve()
-        {
-            Levels.Clear();
-            var directoryPath = $"{Application.dataPath}/StreamingAssets/{typeof(int[,]).Name}";
-            if (!Directory.Exists(directoryPath))
-            {
-                Directory.CreateDirectory(directoryPath);
-            }
-            for (int i = 0; i < MaxmumOfLevels; i++)
-            {
-                var filePath = $"{Application.dataPath}/StreamingAssets/{typeof(int[,]).Name}/Level_{i}.json";
-                if (!File.Exists(filePath))
-                {
-                    AppDataSystem.Save<int[,]>(Grid, $"Level_{i}");
-                    Debug.Log($"Saved Level_{i} as {Grid}");
-                    break;
-                }
-            }
-        }
+       
 
         //[ContextMenu("Save Level")]
         //private void SaveLevel()
@@ -153,9 +127,10 @@ namespace HackMan_GD07
         //string fullFilePath =$"{Application.dataPath}/StreamingAssets/Levels/Level_1.json";
         //0=pill,1=wall,2=hackman,3=ghost
         //4 Features:
-            //Health system
-            //Can transport to another level with current position and transport back
-            //After transported ,the current level savesitself.
-            //The AI will chase you if you are nearby?
+        //1.DamageSystem&ExperienceSystem
+        //2.Can transport to another level with current position and transport back.The system will check if there's a place with the same position, if not ,fail to transport.
+        //3.After transported ,the former level savesitself.
+        //4.The player can make custom levels and save it.
+        //Send Chris email
     }
 }

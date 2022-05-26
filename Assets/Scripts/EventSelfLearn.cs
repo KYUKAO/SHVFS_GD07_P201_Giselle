@@ -4,16 +4,6 @@ using UnityEngine;
 
 public class EventSelfLearn : MonoBehaviour
 {
-    void Start()
-    {
-        
-    }
-
-
-    void Update()
-    {
-        
-    }
 }
 class Cooler
 {
@@ -38,4 +28,5 @@ class Heater
         else
             System.Console.WriteLine("Heater: Off");
     }
-}
+}
+

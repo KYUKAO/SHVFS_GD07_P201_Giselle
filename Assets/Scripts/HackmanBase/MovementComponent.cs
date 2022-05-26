@@ -20,7 +20,7 @@ namespace HackMan_GD07
         
         protected virtual void Update()
         {
-            if (transform.position == targetGridPosition.ToVector3())
+            if (transform.localPosition == targetGridPosition.ToVector3())
             {
                 progressToTarget = 0f;
                 GridPosition = targetGridPosition;
@@ -44,7 +44,7 @@ namespace HackMan_GD07
             }
             if (GridPosition == targetGridPosition) return;
             progressToTarget += MovementSpeed * Time.deltaTime;
-            transform.position = Vector3.Lerp(GridPosition.ToVector3(), targetGridPosition.ToVector3(), progressToTarget);
+            transform.localPosition = Vector3.Lerp(GridPosition.ToVector3(), targetGridPosition.ToVector3(), progressToTarget);
             //Lerp from A to B,A must be a fixed value.
         }
     }

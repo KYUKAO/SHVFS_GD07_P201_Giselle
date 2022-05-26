@@ -64,4 +64,30 @@ public class AppDataSystem
         var data = JsonConvert.DeserializeObject<T>(serializedData);
         return data;
     }
+
+    public static List<T> LoadAll<T>()
+    {
+        var directoryPath = $"{Application.dataPath}/StreamingAssets/{typeof(T).Name}";
+
+        if (!Directory.Exists(directoryPath))
+        {
+            Directory.CreateDirectory(directoryPath);
+            return new List<T>();
+        }
+        var filePaths = Directory.GetFiles(directoryPath, "*.json");
+
+        var fileDataList = new List<T>();
+
+        foreach (var filePath in filePaths)
+        {
+            var serializedData = File.ReadAllText(filePath);
+            var data = JsonConvert.DeserializeObject<T>(serializedData);
+
+            if (!fileDataList.Contains(data))
+            {
+                fileDataList.Add(data);
+            }
+        }
+        return fileDataList;
+    }
 }

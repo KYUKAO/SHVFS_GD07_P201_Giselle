@@ -17,7 +17,7 @@ public class EnemyInputComponent : MovementComponent
 
     protected override void Update()
     {
-        if (transform.position == targetGridPosition.ToVector3())
+        if (transform.localPosition == targetGridPosition.ToVector3())
         {
             var possibleDirections = new List<IntVector2>();
             foreach (var movementDirection in movementDirections)
